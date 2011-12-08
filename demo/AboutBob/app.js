@@ -11,20 +11,18 @@ model.on('updated', function (data) {
 });
 
 
-tubes('/', 'root').connect()
+tubes('home', '/').connect()
     .toTemplate('detail.html', model.fields);
 
-tubes('/form', 'form').connect()
+tubes('form', '/form').connect()
     .get.toTemplate('form.html', model.fields)
     .post.toPostRedirect('/', function (data, complete) {
         model.set(data);
         complete();
     });
 
-tubes('/style.css', 'style').connect()
-    .toFileStream('./approot/style.css', 'text/css');
-
-tubes('/static/*', 'static').connect().toDirectory('./approot/');
+tubes('static', '/static/*').connect()
+    .toDirectory('./approot/');
 
 
 tubes.sendInternetsThru(3000);

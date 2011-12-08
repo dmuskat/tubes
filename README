@@ -14,13 +14,17 @@ tubes('files', '/').connect().toDirectory('./static/');
 
 Doing things manually is easy as well:
 
-tubes('form', '/form').connect().to({
-	get: toTemplate('formtemplate.html'),
-	post: function (request, response, complete) {
+tubes('form', '/form').connect()
+	get.toTemplate('formtemplate.html')
+	post.to(function (request, response, complete) {
 		this.formData(function (data) {
 			new MyModel(data).save(function () {
-				complete();
+				complete('Created');
 			});
 		});
-	}
+	})
 })
+
+settings:
+	server.response.defaultMIMEType
+	server.response.defaultTextEncoding
